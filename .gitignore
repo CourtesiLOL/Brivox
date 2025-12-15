@@ -34,3 +34,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Security config file ###
+secure.properties
+*.log
