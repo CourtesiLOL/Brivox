@@ -13,20 +13,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AuthController {
     
-    @GetMapping("/auth/login")
-    public String loginUi(Model model, @RequestParam(required = false) Boolean failed) {
-        if (failed != null && failed) {
-            model.addAttribute("failed", true);
-            return "login";
-        } 
+    @GetMapping("/auth")
+    public String authUi(Model model, 
+            @RequestParam(required = false) Boolean failed,
+            @RequestParam(required = false) String form
+    ) {
         
-        model.addAttribute("failed", false);
-        return "login";
-    }
-    
-    @GetMapping("/auth/register")
-    public String registerUi(Model model) {
-        return "register";
+        if (form == null || form.equals("login"))
+            model.addAttribute("form", "login");
+        else
+            model.addAttribute("form", "register");
+        
+        if (failed != null && failed) 
+            model.addAttribute("failed", true);
+        
+        return "auth";
     }
     
 }

@@ -40,16 +40,16 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/css/**", "/auth/register").permitAll()
+                        .requestMatchers("/css/**", "/auth").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
-                        .loginPage("/auth/login")
+                        .loginPage("/auth?form=login")
                         .usernameParameter("username")
                         .passwordParameter("password")
-                        .failureUrl("/auth/login?failed")
-                        .loginProcessingUrl("/auth/login")
+                        .failureUrl("/auth?failed")
+                        .loginProcessingUrl("/auth")
                         .permitAll()
                 )
                 //default logout endpoint /
@@ -57,7 +57,7 @@ public class SecurityConfig {
                     .logoutUrl("/logout")
                     .invalidateHttpSession(true)
                     .deleteCookies("JSESSIONID")
-                    .logoutSuccessUrl("/auth/login")
+                    .logoutSuccessUrl("/auth?form=login")
                 );
                 
         return http.build();
