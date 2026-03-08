@@ -4,6 +4,6 @@ package org.courtesilol.Brivox.model;
  *
  * @author javier
  */
-public record UserLoginDTO(String username, String password) {
+public record UserLogin(String username, String password) {
     
 }
