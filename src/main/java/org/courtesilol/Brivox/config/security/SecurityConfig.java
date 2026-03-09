@@ -23,21 +23,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private Environment env;
-
-    /**
-    @Bean
-    public DataSource dataSource() {
-        final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getProperty("driverClassName"));
-        dataSource.setUrl(env.getProperty("url"));
-        dataSource.setUsername(env.getProperty("user"));
-        dataSource.setPassword(env.getProperty("password"));
-        return dataSource;
-    }
-    * **/
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -52,7 +37,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/css/**", "/auth", "/auth/**").permitAll()
+                .requestMatchers("/css/**", "/js/**","/icon/**","/auth", "/auth/**").permitAll()
+                .requestMatchers("/").hasRole("USER")
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 )
@@ -62,6 +48,7 @@ public class SecurityConfig {
                 .passwordParameter("password")
                 .failureUrl("/auth?failed=true")
                 .loginProcessingUrl("/auth")
+                .defaultSuccessUrl("/")
                 .permitAll()
                 )
                 //default logout endpoint /

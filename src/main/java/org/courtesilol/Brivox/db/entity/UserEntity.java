@@ -1,11 +1,14 @@
 package org.courtesilol.Brivox.db.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.Set;
 import org.courtesilol.Brivox.model.dto.UserDto;
 
 /**
@@ -33,7 +36,8 @@ public class UserEntity {
     @Column(nullable = false)
     private String role;
 
-    
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private Set<FileEntity> files;
     
     public long getId() {
         return id;
@@ -74,7 +78,16 @@ public class UserEntity {
     public void setRole(String role) {
         this.role = role;
     }
+    
+    public Set<FileEntity> getFiles() {
+        return files;
+    }
 
+    
+    
+    public int getFileCount() {
+        return files.size();
+    }
     
     
     public UserDto toDto() {
