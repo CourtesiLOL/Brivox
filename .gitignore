@@ -34,3 +34,10 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Security config file ###
+secure.properties
+*.log
+
+### SQLite file
+brivox_db.sqlite

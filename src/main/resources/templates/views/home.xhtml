@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xml:lang="es" lang="es">
+    <head>
+        <title>Nube Archivos - Estilo Mega</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="/css/home.css"/>
+    </head>
+    <body>
+        <header>
+            <nav class="menu">
+                <div class="logo">
+                    <p th:text="${user.getName.charAt(0)}"></p>
+                </div>
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Mi Cuenta</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <div id="files_view">
+                <div class="actions_bar">
+                    <button onclick="uploadFile()" id="upload_button">
+                        <span class="icon">↑</span> Subir Archivo
+                    </button>
+
+                    <div id="file_search">
+                        <input type="text" placeholder="Buscar en mis archivos..."/>
+                        <button onclick="search()" id="search_button">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+
+                <table id="file_items">
+                    <thead>
+                        <tr>
+                            <th>Nombre del Archivo</th>
+                            <th>Tamaño</th>
+                            <th>Descargar</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="fl: ${user.getFiles()}">
+                            <td th:text="${fl.getName()}"/>
+                            <td th:text="${fl.getSize()}"/>
+                            <td>
+                                <div class="file-options">
+                                    <button class="menu-btn" data-target="dropdown1">⋮</button>
+                                    <div class="dropdown-content" id="dropdown1">
+                                        <a href="#">Abrir</a>
+                                        <a href="#">Renombrar</a>
+                                        <a href="#">Eliminar</a>
+                                        <a href="#">Compartir</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p th:if="${user.getFileCount() == 0}" class="empty_message">No tienes archivos en esta carpeta.</p>
+            </div>
+        </main>
+        <script src="/js/home.js"></script>
+    </body>
+</html>
