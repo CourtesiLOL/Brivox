@@ -1,0 +1,286 @@
+/* 
+    Created on : 9 mar 2026, 14:27:09
+    Author     : ruizn
+*/
+
+/* ============================================================
+   ESTILOS GENERALES Y VARIABLES (Paleta Azul Claro)
+   ============================================================ */
+:root {
+    --brand-blue: #0077ff; /* Azul vibrante pero profesional */
+    --brand-blue-hover: #0056b3;
+    --brand-blue-light: #e6f2ff; /* Para efectos de focus y hover suaves */
+    
+    --bg-main: #f0f4f8; /* Gris azulado muy claro para el fondo */
+    --bg-card: #ffffff; /* Blanco para contenedores */
+    
+    --text-primary: #2d3748; /* Gris oscuro azulado para texto */
+    --text-secondary: #718096; /* Gris medio para texto secundario */
+    --border-color: #cbd5e0; /* Azul grisáceo para bordes */
+    
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   HEADER Y NAVEGACIÓN
+   ============================================================ */
+header {
+    background-color: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.menu {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    background-color: var(--brand-blue);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.menu ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.menu a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.menu a:hover {
+    color: var(--brand-blue);
+}
+
+/* ============================================================
+   CONTENEDOR PRINCIPAL
+   ============================================================ */
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+#files_view {
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    overflow: visible; 
+    padding: 1.5rem;
+}
+
+/* ============================================================
+   BARRA DE ACCIONES (Upload y Buscar)
+   ============================================================ */
+.actions_bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+}
+
+button {
+    font-family: var(--font-family);
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Botón Subir (Azul) */
+#upload_button {
+    background-color: var(--brand-blue);
+    color: white;
+    padding: 12px 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+#upload_button:hover {
+    background-color: var(--brand-blue-hover);
+    transform: translateY(-1px);
+}
+
+/* Área de Búsqueda */
+#file_search {
+    display: flex;
+    gap: 0.5rem;
+}
+
+input[type="text"] {
+    font-family: var(--font-family);
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    width: 300px;
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: var(--brand-blue);
+    box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.15);
+}
+
+/* Botón Buscar (Gris azulado suave) */
+#search_button {
+    background-color: #edf2f7;
+    color: var(--text-primary);
+    padding: 12px 20px;
+    border: 1px solid var(--border-color);
+}
+
+#search_button:hover {
+    background-color: #e2e8f0;
+}
+
+/* ============================================================
+   LA TABLA DE ARCHIVOS
+   ============================================================ */
+#file_items {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+/* Encabezado de Tabla */
+#file_items thead th {
+    background-color: #f8fafc;
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-align: left;
+    padding: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+/* Filas de la Tabla */
+#file_items tbody tr {
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s;
+}
+
+#file_items tbody tr:hover {
+    background-color: #f1f7ff; /* Azul muy pálido al pasar el ratón */
+    cursor: pointer;
+}
+
+/* Celdas de la Tabla */
+#file_items td {
+    padding: 1rem;
+    color: var(--text-primary);
+}
+
+/* Primera columna (Nombre) */
+#file_items td:first-child {
+    font-weight: 500;
+    color: #1a202c;
+}
+
+/* Columna de tamaño */
+#file_items td:last-child {
+    color: var(--text-secondary);
+}
+
+/* ============================================================
+   MENSAJE VACÍO
+   ============================================================ */
+.empty_message {
+    display: inherit; 
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 3rem 1rem;
+    font-style: italic;
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    background-color: #f8fafc;
+}
+
+/* ============================================================
+   MENÚ DESPLEGABLE
+   ============================================================ */
+.file-options {
+    position: relative;
+    display: inline-block;
+}
+
+.menu-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    z-index: 200; /* Aumenta el z-index para que esté por encima de otros elementos */
+    display: none;
+    position: absolute;
+    background-color: var(--bg-card);
+    min-width: 160px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+}
+
+.dropdown-content a {
+    color: var(--text-primary);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--brand-blue-light);
+}
+
+.show {
+    display: block;
+}

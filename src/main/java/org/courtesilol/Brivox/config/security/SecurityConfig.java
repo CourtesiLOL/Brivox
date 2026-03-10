@@ -1,14 +1,18 @@
 package org.courtesilol.Brivox.config.security;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
@@ -23,43 +27,38 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
+
     @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder encoder) {
-        //TO-DO create the DB user read
-        var manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.builder()
-                .username("user")
-                .password(encoder.encode("1234"))
-                .roles("USER").build());
-        
-        return manager;
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsServiceImpl();
     }
-    
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/css/**", "/auth/register").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+                .requestMatchers("/css/**", "/js/**","/icon/**","/auth", "/auth/**").permitAll()
+                .requestMatchers("/").hasRole("USER")
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
-                        .loginPage("/auth/login")
-                        .usernameParameter("username")
-                        .passwordParameter("password")
-                        .failureUrl("/auth/login?failed")
-                        .loginProcessingUrl("/auth/login")
-                        .permitAll()
+                .loginPage("/auth?form=login")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .failureUrl("/auth?failed=true")
+                .loginProcessingUrl("/auth")
+                .defaultSuccessUrl("/")
+                .permitAll()
                 )
                 //default logout endpoint /
                 .logout(logout -> logout
-                    .logoutUrl("/logout")
-                    .invalidateHttpSession(true)
-                    .deleteCookies("JSESSIONID")
-                    .logoutSuccessUrl("/auth/login")
+                .logoutUrl("/logout")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessUrl("/auth?form=login")
                 );
-                
+
         return http.build();
     }
 }
