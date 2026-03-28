@@ -20,7 +20,7 @@ The project leverages a modern Java ecosystem to ensure high performance and rel
 
 ## Features (Roadmap)
 
-- [ ] User Authentication: Protected access to your personal file system via Spring Security.
+- [x] User Authentication: Protected access to your personal file system via Spring Security.
 - [ ] Secure File Upload/Download: Seamlessly move files between your local machine and the server.
 - [ ] Directory Management: Organize your data using a nested folder structure.
 - [ ] File Sharing: Generate secure links to transfer files to other users.
