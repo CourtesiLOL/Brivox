@@ -1,70 +1,197 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xml:lang="es" lang="es">
-    <head>
-        <title>Nube Archivos - Estilo Mega</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="stylesheet" href="/css/home.css"/>
-    </head>
-    <body>
-        <header>
-            <nav class="menu">
-                <div class="logo">
-                    <p th:text="${user.getName.charAt(0)}"></p>
-                </div>
-                <ul>
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Mi Cuenta</a></li>
-                </ul>
-            </nav>
-        </header>
-        <main>
-            <div id="files_view">
-                <div class="actions_bar">
-                    <button onclick="uploadFile()" id="upload_button">
-                        <span class="icon">↑</span> Subir Archivo
-                    </button>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
-                    <div id="file_search">
-                        <input type="text" placeholder="Buscar en mis archivos..."/>
-                        <button onclick="search()" id="search_button">
-                            Buscar
-                        </button>
-                    </div>
-                </div>
+<head>
+    <title>Brivox app</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/home.css" />
+</head>
 
-                <table id="file_items">
-                    <thead>
-                        <tr>
-                            <th>Nombre del Archivo</th>
-                            <th>Tamaño</th>
-                            <th>Descargar</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr th:each="fl: ${user.getFiles()}">
-                            <td th:text="${fl.getName()}"/>
-                            <td th:text="${fl.getSize()}"/>
-                            <td>
-                                <div class="file-options">
-                                    <button class="menu-btn" data-target="dropdown1">⋮</button>
-                                    <div class="dropdown-content" id="dropdown1">
-                                        <a href="#">Abrir</a>
-                                        <a href="#">Renombrar</a>
-                                        <a href="#">Eliminar</a>
-                                        <a href="#">Compartir</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <p th:if="${user.getFileCount() == 0}" class="empty_message">No tienes archivos en esta carpeta.</p>
+<body>
+    <header>
+        <div id="top-bar">
+            <div id="left">
+                <img id="web-icon" src="/icon/brivox-icon.svg" width="64" height="64" alt="icon"/>
+                <h2>Brivox</h2>
             </div>
-        </main>
-        <script src="/js/home.js"></script>
-    </body>
+            <div id="right">
+                <h2 class="circle">N</h2>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div id="option-container">
+            <ul id="option-menu">
+                <li class="item-option-selected">
+                    <img class="list-item-icon" src="/icon/storage-icon.svg" alt="icon"/>
+                    <h3>My Files</h3>
+                </li>
+                <li class="item-option">
+                    <img class="list-item-icon" src="/icon/share-icon.svg" alt="icon"/>
+                    <h3>Share</h3>
+                </li>
+                <li class="item-option">
+                    <img class="list-item-icon" src="/icon/recent-icon.svg" alt="icon"/>
+                    <h3>Recent</h3>
+                </li>
+            </ul>
+
+
+            <div class="sotorage-message">
+                <h3>Storage capacity</h3>
+                <p>0gb of 100gb</p>
+            </div>
+        </div>
+        <div id="file-content">
+            
+            <div class="toolbar-container">
+                <div class="search-box">
+                    <input type="text" placeholder="Search in Brivox..." class="search-input" />
+                    <button type="button" class="search-btn">
+                        <img src="/icon/search-glass-icon.svg" alt="Search" width="20" height="20" />
+                    </button>
+                </div>
+
+                <div class="sort-box">
+                    <img src="/icon/sort-icon.svg" alt="Sort" width="18" height="18" class="sort-icon-img" />
+                    <select class="sort-dropdown">
+                        <option value="name">Name</option>
+                        <option value="date">Date</option>
+                        <option value="size">Size</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="file-list">
+                <ul class="files-ul">
+
+                    <li class="file-item">
+                        <div class="file-icon">
+                            <img src="/icon/file-type/directory-icon.svg"/>
+                        </div>
+                        <div class="file-info">
+                            <span class="file-name">Test directory</span>
+                        </div>
+                        <div class="file-menu">
+                            <img src="/icon/threedots-icon.svg" alt="menu"/>
+                        </div>
+
+                    </li>
+                    
+                    <li class="file-item">
+                        <div class="file-icon">
+                            <img src="/icon/file-type/media-icon.svg"/>
+                        </div>
+                        <div class="file-info">
+                            <span class="file-name">Test-video.mp4</span>
+                            <span class="file-size">90 MB</span>
+                        </div>
+                        <div class="file-menu">
+                            <img src="/icon/threedots-icon.svg" alt="menu"/>
+                        </div>
+
+                    </li>
+                    
+                    <li class="file-item">
+                        <div class="file-icon">
+                            <img src="/icon/file-type/document-icon.svg"/>
+                        </div>
+                        <div class="file-info">
+                            <span class="file-name">Test-document.txt</span>
+                            <span class="file-size">512 KB</span>
+                        </div>
+                        <div class="file-menu">
+                            <img src="/icon/threedots-icon.svg" alt="menu"/>
+                        </div>
+
+                    </li>
+                    
+                    <li class="file-item">
+                        <div class="file-icon">
+                            <img src="/icon/file-type/audio-icon.svg"/>
+                        </div>
+                        <div class="file-info">
+                            <span class="file-name">Test-music.mp3</span>
+                            <span class="file-size">2.5 MB</span>
+                        </div>
+                        <div class="file-menu">
+                            <img src="/icon/threedots-icon.svg" alt="menu"/>
+                        </div>
+
+                    </li>
+                    
+                    <li class="file-item">
+                        <div class="file-icon">
+                            <img src="/icon/file-type/image-icon.svg"/>
+                        </div>
+                        <div class="file-info">
+                            <span class="file-name">Test-picture cat.jpeg</span>
+                            <span class="file-size">1 MB</span>
+                        </div>
+                        <div class="file-menu">
+                            <img src="/icon/threedots-icon.svg" alt="menu"/>
+                        </div>
+
+                    </li>
+                    
+                    <li class="file-item">
+                        <div class="file-icon">
+                            <img src="/icon/file-type/code-icon.svg"/>
+                        </div>
+                        <div class="file-info">
+                            <span class="file-name">Test-file code.java</span>
+                            <span class="file-size">1 MB</span>
+                        </div>
+                        <div class="file-menu">
+                            <img src="/icon/threedots-icon.svg" alt="menu"/>
+                        </div>
+
+                    </li>
+                    
+                    <li class="file-item">
+                        <div class="file-icon">
+                            <img src="/icon/file-type/packed-icon.svg"/>
+                        </div>
+                        <div class="file-info">
+                            <span class="file-name">Test-compressed file.zip</span>
+                            <span class="file-size">1 MB</span>
+                        </div>
+                        <div class="file-menu">
+                            <img src="/icon/threedots-icon.svg" alt="menu"/>
+                        </div>
+
+                    </li>
+                    
+                    <li class="file-item">
+                        <div class="file-icon">
+                            <img src="/icon/file-type/unknown-icon.svg"/>
+                        </div>
+                        <div class="file-info">
+                            <span class="file-name">Test-unknown file.test</span>
+                            <span class="file-size">128 KB</span>
+                        </div>
+                        <div class="file-menu">
+                            <img src="/icon/threedots-icon.svg" alt="menu"/>
+                        </div>
+
+                    </li>
+                    <li class="file-item">
+                        <div class="file-icon">
+                            <img src="/gift/loading.svg" alt="loading..."/>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+    <script src="/js/home.js"></script>
+</body>
+
 </html>

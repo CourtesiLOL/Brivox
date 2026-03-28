@@ -4,22 +4,22 @@
 */
 
 /* Paleta de colores sugerida: 
-   Fondo: #E3F2FD (Azul muy claro)
-   Primario: #1976D2 (Azul fuerte para botones)
-   Texto: #333333
+   Fondo: #fafafa (Gris muy claro)
+   Primario: #616161 (Gris oscuro para botones)
+   Texto: #212121 (Gris muy oscuro)
 */
 
 body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #e3f2fd; /* El azul claro de fondo */
+    background-color: #fafafa; /* Gris muy claro de fondo */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    color: #333;
+    color: #212121;
 }
 
 /* Contenedor principal (estilo tarjeta) */
@@ -27,14 +27,14 @@ main {
     background: white;
     padding: 2.5rem;
     border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
     width: 100%;
     max-width: 350px;
     text-align: center;
 }
 
 header h1 {
-    color: #1976d2;
+    color: #616161;
     margin-bottom: 1.5rem;
     font-weight: 600;
 }
@@ -49,21 +49,22 @@ form {
 input[type="text"],
 input[type="password"] {
     padding: 12px 15px;
-    border: 2px solid #e0e0e0;
+    border: 2px solid #e8e8e8;
     border-radius: 8px;
     font-size: 1rem;
     transition: border-color 0.3s ease;
+    color: #212121;
 }
 
 input[type="text"]:focus,
 input[type="password"]:focus {
     outline: none;
-    border-color: #1976d2;
+    border-color: #616161;
 }
 
 /* Botón de Submit */
 input[type="submit"] {
-    background-color: #1976d2;
+    background-color: #616161;
     color: white;
     border: none;
     padding: 12px;
@@ -76,7 +77,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #1565c0;
+    background-color: #424242;
 }
 
 input[type="submit"]:active {
@@ -91,8 +92,8 @@ footer {
 
 button {
     background: transparent;
-    border: 1px solid #1976d2;
-    color: #1976d2;
+    border: 1px solid #616161;
+    color: #616161;
     padding: 8px 20px;
     border-radius: 8px;
     cursor: pointer;
@@ -101,13 +102,13 @@ button {
 }
 
 button:hover {
-    background-color: #1976d2;
+    background-color: #616161;
     color: white;
 }
 
 /* Mensaje de error */
 p[style*="color:red"] {
-    color: red;
+    color: #d32f2f;
     margin-top: 1rem;
     font-size: 0.85rem;
     background-color: #ffebee;
